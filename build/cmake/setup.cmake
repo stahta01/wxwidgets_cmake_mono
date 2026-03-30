@@ -34,15 +34,19 @@ endmacro()
 string(TOUPPER ${CMAKE_SYSTEM_NAME} wxSYS_NAME)
 wx_setup_definition(__${wxSYS_NAME}__)
 
-if(WIN32)
+if(WIN32 OR WXMSW)
     wx_setup_definition(__WIN32__)
 endif()
 
-if(CYGWIN)
+if(CYGWIN OR MSYS)
     wx_setup_definition(__GNUWIN32__)
 endif()
 
-if(UNIX)
+if(MSYS AND WXMSW)
+    wx_setup_definition(__WINDOWS__)
+endif()
+
+if(UNIX AND NOT WXMSW)
     wx_setup_definition(wxUSE_UNIX)
     wx_setup_definition(__UNIX__)
     list(APPEND CMAKE_REQUIRED_DEFINITIONS -D_FILE_OFFSET_BITS=64)
