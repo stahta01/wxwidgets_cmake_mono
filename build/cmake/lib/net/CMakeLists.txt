@@ -9,13 +9,13 @@
 
 wx_append_sources(NET_FILES NET_CMN)
 
-if(WIN32)
+if(WIN32 OR WXMSW)
     wx_append_sources(NET_FILES NET_WIN32)
 elseif(APPLE)
     wx_append_sources(NET_FILES NET_OSX)
 endif()
 
-if(UNIX AND NOT WIN32)
+if(UNIX AND NOT WIN32 AND NOT WXMSW)
     wx_append_sources(NET_FILES NET_UNIX)
 endif()
 

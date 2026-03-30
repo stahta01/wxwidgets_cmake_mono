@@ -151,7 +151,7 @@ function(wx_set_common_target_properties target_name)
         set_target_properties(${target_name} PROPERTIES POSITION_INDEPENDENT_CODE TRUE)
     endif()
 
-    if(NOT WIN32 AND wxUSE_VISIBILITY)
+    if(NOT WIN32 AND NOT WXMSW AND wxUSE_VISIBILITY)
         set_target_properties(${target_name} PROPERTIES
             C_VISIBILITY_PRESET hidden
             CXX_VISIBILITY_PRESET hidden
@@ -328,7 +328,7 @@ function(wx_set_target_properties target_name)
     endif()
 
     # shared library names
-    if(WIN32)
+    if(WIN32 OR WXMSW)
         # msvc/makefile/configure use the same format on Windows
         set(wxRUNTIME_OUTPUT_NAME       "wx${lib_toolkit}${dll_version}${lib_unicode}${lib_rls}${dll_suffix}")
         set(wxRUNTIME_OUTPUT_NAME_DEBUG "wx${lib_toolkit}${dll_version}${lib_unicode}${lib_dbg}${dll_suffix}")
@@ -383,7 +383,7 @@ function(wx_set_target_properties target_name)
             )
     endif()
 
-    if(WIN32)
+    if(WIN32 OR WXMSW)
         # not needed for wxWidgets anymore (it is always built with unicode)
         # but keep it here so IDEs like Visual Studio know what character set is used
         target_compile_definitions(${target_name} PRIVATE UNICODE _UNICODE)
@@ -405,7 +405,7 @@ function(wx_set_target_properties target_name)
             PRIVATE ${wxTOOLKIT_INCLUDE_DIRS})
     endif()
 
-    if (WIN32)
+    if (WIN32 OR WXMSW)
         set(WIN32_LIBRARIES
             kernel32
             user32
@@ -510,7 +510,7 @@ macro(wx_add_library name)
 
         if(wxBUILD_SHARED)
             set(wxBUILD_LIB_TYPE SHARED)
-            if(WIN32)
+            if(WIN32 OR WXMSW)
                 # Add WIN32 version information
                 list(APPEND src_files "${wxSOURCE_DIR}/src/msw/version.rc" "${wxSOURCE_DIR}/include/wx/msw/genrcdefs.h")
             endif()
@@ -702,7 +702,7 @@ function(wx_set_builtin_target_properties target_name)
         )
     endif()
 
-    if(WIN32)
+    if(WIN32 OR WXMSW)
         target_compile_definitions(${target_name} PRIVATE UNICODE _UNICODE)
     endif()
 
@@ -769,7 +769,7 @@ function(wx_add_thirdparty_library var_name lib_name help_str)
     elseif(UNIX AND NOT APPLE)
         # Try sys libraries for MSYS and CYGWIN
         set(thirdparty_lib_default sys)
-    elseif(WIN32 OR APPLE)
+    elseif(WIN32 OR WXMSW OR APPLE)
         # On Windows or apple platforms prefer using the builtin libraries
         set(thirdparty_lib_default builtin)
     else()
@@ -927,7 +927,7 @@ function(wx_add name group)
         set(src_files ${wxSOURCE_DIR}/${SUB_DIR}/${name}.cpp)
     endif()
 
-    if(WIN32)
+    if(WIN32 OR WXMSW)
         if(APP_RES)
             foreach(res ${APP_RES})
                 list(APPEND src_files ${wxSOURCE_DIR}/${SUB_DIR}/${res})

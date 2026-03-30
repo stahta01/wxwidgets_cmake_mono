@@ -10,7 +10,7 @@
 wx_append_sources(BASE_FILES BASE_CMN)
 wx_append_sources(BASE_FILES BASE_AND_GUI_CMN)
 
-if(WIN32)
+if(WIN32 OR WXMSW)
     wx_append_sources(BASE_FILES BASE_WIN32)
     wx_append_sources(BASE_FILES BASE_AND_GUI_WIN32)
 elseif(APPLE)

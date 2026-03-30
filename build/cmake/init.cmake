@@ -181,7 +181,7 @@ set(wxARCH_SUFFIX)
 set(wxCOMPILER_PREFIX)
 set(wxPLATFORM_LIB_DIR)
 
-if(WIN32)
+if(WIN32 OR WXMSW)
     # TODO: include compiler version in wxCOMPILER_PREFIX for official builds
     if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
         set(wxCOMPILER_PREFIX "vc")

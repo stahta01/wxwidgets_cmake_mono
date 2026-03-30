@@ -9,7 +9,7 @@
 
 wx_append_sources(CORE_SRC GUI_CMN)
 wx_append_sources(CORE_SRC BASE_AND_GUI_CMN)
-if(WIN32)
+if(WIN32 OR WXMSW)
     wx_append_sources(CORE_SRC BASE_AND_GUI_WIN32)
 elseif(UNIX)
     wx_append_sources(CORE_SRC UNIX)
