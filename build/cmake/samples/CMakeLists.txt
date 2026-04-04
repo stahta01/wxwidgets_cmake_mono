@@ -156,6 +156,7 @@ if(wxUSE_WEBVIEW)
     include(webview.cmake)
 endif()
 wx_add_sample(webrequest LIBRARIES wxnet DEPENDS wxUSE_WEBREQUEST)
+if(wxUSE_GUI)
 # widgets Sample
 set(SAMPLE_WIDGETS_SRC
     activityindicator.cpp
@@ -217,6 +218,7 @@ wx_add_sample(widgets IMPORTANT ${SAMPLE_WIDGETS_SRC}
     )
 # includes needed by the native widget (like gtk.h)
 target_include_directories(widgets PRIVATE ${wxTOOLKIT_INCLUDE_DIRS})
+endif()
 wx_add_sample(wizard DATA wiztest.svg wiztest2.svg DEPENDS wxUSE_WIZARDDLG)
 wx_add_sample(wrapsizer)
 
