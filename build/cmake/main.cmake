@@ -57,7 +57,7 @@ include(build/cmake/install.cmake)
 
 # Determine minimum required OS at runtime
 set(wxREQUIRED_OS_DESC "${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_PROCESSOR}")
-if(MSVC OR MINGW OR CYGWIN)
+if(MSVC OR MINGW OR CYGWIN OR MSYS)
     set(wxREQUIRED_OS_DESC "Windows 7 / Windows Server 2008")
     if(wxPLATFORM_ARCH)
         wx_string_append(wxREQUIRED_OS_DESC " (${wxPLATFORM_ARCH} Edition)")

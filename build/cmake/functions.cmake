@@ -357,7 +357,7 @@ function(wx_set_target_properties target_name)
         target_compile_definitions(${target_name} PRIVATE "WXDLLNAME=${wxDLLNAME}")
     endif()
 
-    if(CYGWIN)
+    if(CYGWIN OR MSYS)
         target_link_libraries(${target_name} PUBLIC -L/usr/lib/w32api)
     endif()
 
